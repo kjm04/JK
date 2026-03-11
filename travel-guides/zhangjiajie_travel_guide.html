@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ko" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>장가계 여행 가이드 - 3월 중순</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script>Chart.defaults.animation = false;</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { interpolate-size: allow-keywords; }
+
+    html.theme-dark {
+      --bg: #06080a; --surface: #0f1215; --surface-hover: #181c20;
+      --border: rgba(255,255,255,0.06); --border-accent: rgba(34,211,238,0.15);
+      --text: #f0f0f0; --text-secondary: #7a8494;
+      --accent: #22d3ee; --accent-secondary: #a78bfa; --accent-glow: rgba(34,211,238,0.12);
+      --positive: #10b981; --negative: #f43f5e; --warning: #f59e0b;
+      --glass-bg: rgba(15,18,21,0.85); --glass-border: rgba(255,255,255,0.04);
+      --hero-gradient: linear-gradient(160deg, #050d18 0%, #0c1d2e 30%, #0a1a1a 60%, #080e14 100%);
+      --card-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.2);
+      --spot-overlay: linear-gradient(180deg, transparent 30%, rgba(6,8,10,0.95) 100%);
+    }
+    html.theme-light {
+      --bg: #f7f8fa; --surface: #ffffff; --surface-hover: #f0f2f5;
+      --border: rgba(0,0,0,0.07); --border-accent: rgba(8,145,178,0.2);
+      --text: #0f172a; --text-secondary: #5b6b82;
+      --accent: #0891b2; --accent-secondary: #7c3aed; --accent-glow: rgba(8,145,178,0.08);
+      --positive: #059669; --negative: #e11d48; --warning: #d97706;
+      --glass-bg: rgba(255,255,255,0.8); --glass-border: rgba(0,0,0,0.04);
+      --hero-gradient: linear-gradient(160deg, #e8f4f8 0%, #dff0e8 30%, #e6f0fa 60%, #f0f4f8 100%);
+      --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+      --spot-overlay: linear-gradient(180deg, transparent 30%, rgba(255,255,255,0.95) 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    h1,h2,h3,h4,h5,h6 { color: var(--text); letter-spacing: -0.03em; line-height: 1.2; }
+    h1 { font-size: 3rem; font-weight: 800; }
+    h2 { font-size: 2rem; font-weight: 700; }
+    h3 { font-size: 1.5rem; font-weight: 600; }
+    p, li, td, th, span, label { color: var(--text); font-weight: 400; }
+    .text-secondary { color: var(--text-secondary); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== PREMIUM CARD ===== */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+      box-shadow: var(--card-shadow);
+      transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: var(--card-shadow), 0 0 0 1px var(--border-accent);
+      border-color: var(--border-accent);
+    }
+
+    /* ===== GLASS CARD ===== */
+    .glass-card {
+      background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border); border-radius: 16px;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .animate { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .animate.delay-1 { animation-delay: 0.1s; }
+    .animate.delay-2 { animation-delay: 0.2s; }
+    .animate.delay-3 { animation-delay: 0.3s; }
+    .animate.delay-4 { animation-delay: 0.4s; }
+    .animate.delay-5 { animation-delay: 0.5s; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ===== PRINT ===== */
+    @media print {
+      body { background: white !important; color: black !important; }
+      .viz-menu, .section-nav { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .card { break-inside: avoid; border: 1px solid #ddd; box-shadow: none; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+    @page { margin: 0.75in; }
+
+    /* ===== MENU ===== */
+    .viz-menu { position: fixed; top: 16px; right: 16px; z-index: 9999; }
+    .viz-menu-toggle {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--glass-bg); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      color: var(--text); cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .viz-menu-toggle:hover { background: var(--surface-hover); border-color: var(--border-accent); }
+    .viz-menu-dropdown {
+      position: absolute; top: 52px; right: 0; min-width: 200px;
+      background: var(--glass-bg); backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px; padding: 8px;
+      opacity: 0; visibility: hidden; transform: translateY(-8px) scale(0.96);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+    }
+    .viz-menu-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+    .viz-menu-dropdown button {
+      width: 100%; padding: 10px 14px; border: none; border-radius: 10px;
+      background: transparent; color: var(--text); font-size: 14px;
+      font-family: inherit; cursor: pointer; text-align: left;
+      display: flex; align-items: center; gap: 10px; transition: background 0.15s;
+    }
+    .viz-menu-dropdown button:hover { background: var(--surface-hover); }
+
+    /* ===== HERO ===== */
+    .hero-section {
+      background: var(--hero-gradient);
+      padding: 100px 24px 80px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-section::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 80%, var(--accent-glow) 0%, transparent 50%);
+    }
+    .hero-section::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+      background: linear-gradient(to top, var(--bg), transparent); pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--glass-bg); backdrop-filter: blur(12px);
+      border: 1px solid var(--border-accent); border-radius: 100px;
+      padding: 8px 20px; font-size: 0.85rem; color: var(--accent);
+      font-weight: 500; margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 4rem); font-weight: 800; margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle { font-size: 1.15rem; color: var(--text-secondary); max-width: 620px; margin: 0 auto; line-height: 1.7; }
+    .hero-divider {
+      width: 60px; height: 3px; border-radius: 2px; margin: 32px auto 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+    }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .section-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--accent-glow); border: 1px solid var(--border-accent);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .section-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .section-number {
+      font-size: 0.7rem; font-weight: 700; color: var(--accent);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;
+    }
+
+    /* ===== WEATHER STATS ===== */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .stat-card { text-align: center; padding: 28px 16px; position: relative; overflow: hidden; }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .stat-value { font-size: 2.8rem; font-weight: 800; color: var(--accent); line-height: 1.1; margin-bottom: 6px; }
+    .stat-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
+
+    /* ===== CLOTHING ===== */
+    .clothing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .clothing-item { display: flex; align-items: flex-start; gap: 16px; padding: 24px; }
+    .clothing-icon-box {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--accent-glow); border: 1px solid var(--border-accent);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .clothing-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 6px; }
+    .clothing-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ===== SPOTS — SIDE-BY-SIDE LAYOUT ===== */
+    .spot-card {
+      overflow: hidden;
+      margin-bottom: 24px; border-radius: 20px;
+      display: flex; flex-direction: row;
+    }
+    .spot-image-wrapper {
+      flex: 0 0 42%; position: relative; overflow: hidden;
+      min-height: 380px;
+    }
+    .spot-image-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .spot-image-fallback {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .spot-overlay { display: none; }
+    .spot-content {
+      flex: 1 1 58%;
+      padding: 32px 32px 28px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .spot-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 14px; border-radius: 100px; width: fit-content;
+      background: var(--accent-glow);
+      color: var(--accent); font-size: 0.75rem; font-weight: 600; margin-bottom: 12px;
+      border: 1px solid var(--border-accent);
+    }
+    .spot-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+    .spot-history-detail p {
+      font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 10px;
+    }
+    .spot-highlight {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 14px 18px; margin-top: 14px;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-accent);
+      border-radius: 12px; font-size: 0.85rem;
+    }
+    .spot-highlight-icon { flex-shrink: 0; color: var(--accent); margin-top: 2px; }
+    .spot-highlight-text { color: var(--text-secondary); line-height: 1.6; }
+    .spot-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .spot-tag {
+      padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500;
+      background: var(--surface-hover);
+      border: 1px solid var(--border); color: var(--text-secondary);
+    }
+
+    /* ===== ITINERARY ===== */
+    .itinerary-timeline { position: relative; padding-left: 44px; }
+    .itinerary-timeline::before {
+      content: ''; position: absolute; left: 16px; top: 8px; bottom: 8px;
+      width: 2px; background: linear-gradient(180deg, var(--accent), var(--accent-secondary), var(--border));
+    }
+    .itinerary-day { position: relative; margin-bottom: 32px; }
+    .itinerary-day::before {
+      content: ''; position: absolute; left: -32px; top: 4px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--accent); border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+    .day-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
+    }
+    .day-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    .day-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+
+    /* ===== CHECKLIST ===== */
+    .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .checklist-category { padding: 24px; }
+    .checklist-cat-title {
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .checklist-items { list-style: none; }
+    .checklist-items li {
+      font-size: 0.85rem; color: var(--text-secondary);
+      padding: 7px 0; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+    }
+    .check-icon { color: var(--positive); flex-shrink: 0; margin-top: 2px; font-weight: 700; }
+
+    /* ===== EMERGENCY CONTACTS ===== */
+    .emergency-section { margin-top: 24px; }
+    .emergency-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;
+    }
+    .emergency-card {
+      padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+      background: var(--surface); border-radius: 14px;
+      border: 1px solid var(--border); transition: border-color 0.2s;
+    }
+    .emergency-card:hover { border-color: var(--negative); }
+    .emergency-icon {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(244,63,94,0.08); border: 1px solid rgba(244,63,94,0.15);
+    }
+    .emergency-icon svg { width: 20px; height: 20px; stroke: var(--negative); fill: none; stroke-width: 2; }
+    .emergency-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
+    .emergency-number { font-size: 1.1rem; font-weight: 800; color: var(--negative); font-family: 'Inter', monospace; letter-spacing: 0.02em; }
+    .emergency-note { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; }
+
+    /* ===== CHART ===== */
+    .chart-wrapper {
+      padding: 28px; border-radius: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+    }
+    .chart-container { height: 300px; }
+
+    /* ===== SECTION NAV ===== */
+    .section-nav {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 8px; z-index: 9998;
+      background: var(--glass-bg); backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border); border-radius: 100px;
+      padding: 10px 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    .section-nav a {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--text-secondary); opacity: 0.25;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block; text-decoration: none;
+    }
+    .section-nav a:hover { opacity: 0.6; transform: scale(1.2); }
+    .section-nav a.active { opacity: 1; background: var(--accent); transform: scale(1.4); box-shadow: 0 0 8px var(--accent-glow); }
+    .section-nav-label {
+      font-size: 0.7rem; color: var(--text-secondary); font-weight: 600;
+      margin-left: 8px; white-space: nowrap; letter-spacing: 0.03em;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      text-align: center; padding: 48px 24px;
+      color: var(--text-secondary); font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.2rem; }
+      .spot-card { flex-direction: column; }
+      .spot-image-wrapper { flex: none; min-height: 220px; max-height: 260px; }
+      .spot-content { padding: 24px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .container { padding: 0 16px; }
+      section { padding-left: 16px !important; padding-right: 16px !important; }
+    }
+    @media (max-width: 375px) {
+      body { overflow-x: hidden; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .card { padding: 16px; }
+      .stat-value { font-size: 2rem; }
+      .hero-section { padding: 60px 16px 50px; }
+    }
+
+    /* ===== SKIP LINK ===== */
+    .skip-link {
+      position: absolute; left: -9999px; top: auto;
+      width: 1px; height: 1px; overflow: hidden;
+    }
+    .skip-link:focus {
+      position: fixed; left: 16px; top: 16px; z-index: 10000;
+      padding: 8px 16px; background: var(--accent); color: white;
+      text-decoration: none; border-radius: 8px; width: auto; height: auto;
+    }
+
+    /* ===== ATMOSPHERE ===== */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background:
+        radial-gradient(ellipse at 75% 15%, var(--accent-glow) 0%, transparent 45%),
+        radial-gradient(ellipse at 25% 85%, rgba(167,139,250,0.04) 0%, transparent 45%);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">본문으로 이동</a>
+
+  <!-- MENU -->
+  <div class="viz-menu">
+    <button class="viz-menu-toggle" onclick="toggleMenu()" aria-label="메뉴">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/>
+      </svg>
+    </button>
+    <div class="viz-menu-dropdown" id="vizMenuDropdown">
+      <button onclick="cycleTheme()"><span id="themeIcon">🌙</span><span id="themeLabel">Dark</span></button>
+      <button onclick="downloadImage()"><span>📥</span><span>PNG 다운로드</span></button>
+      <button onclick="window.print()"><span>🖨️</span><span>인쇄 / PDF</span></button>
+    </div>
+  </div>
+
+  <main id="main-content" role="main">
+
+    <!-- HERO -->
+    <section class="hero-section animate">
+      <div class="container">
+        <div class="hero-badge animate delay-1">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          중국 후난성 · 2026년 3월 중순
+        </div>
+        <h1 class="hero-title animate delay-2">장가계 여행 가이드</h1>
+        <p class="hero-subtitle animate delay-3">영화 아바타의 영감이 된 세계자연유산, 구름 위의 풍경을 만나는 3월 중순 장가계 완벽 가이드</p>
+        <div class="hero-divider animate delay-4"></div>
+      </div>
+    </section>
+
+    <!-- WEATHER -->
+    <section id="sec-weather" style="padding: 72px 24px;" class="animate delay-5">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <div>
+            <div class="section-number">Section 01</div>
+            <h2>3월 중순 날씨</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">일교차가 크고 비와 안개가 잦은 초봄 날씨</p>
+          </div>
+        </div>
+        <div class="stats-grid" style="margin-bottom:28px;">
+          <div class="card stat-card"><div class="stat-value" data-count="15" data-suffix="°C">0°C</div><div class="stat-label">평균 최고 기온</div></div>
+          <div class="card stat-card"><div class="stat-value" data-count="5" data-suffix="°C">0°C</div><div class="stat-label">평균 최저 기온</div></div>
+          <div class="card stat-card"><div class="stat-value" data-count="13" data-suffix="일">0일</div><div class="stat-label">월 강수일수</div></div>
+          <div class="card stat-card"><div class="stat-value" data-count="78" data-suffix="%">0%</div><div class="stat-label">평균 습도</div></div>
+        </div>
+        <div class="chart-wrapper" role="img" aria-label="장가계 3월 일별 예상 기온 범위 차트">
+          <h3 style="font-size:1rem; margin-bottom:16px;">3월 기온 변화 추이</h3>
+          <div class="chart-container"><canvas id="tempChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOTHING -->
+    <section id="sec-clothing" style="padding: 0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M6.5 6.5L2 12l4.5 5.5V14H10v-4H6.5V6.5z"/><path d="M17.5 6.5L22 12l-4.5 5.5V14H14v-4h3.5V6.5z"/></svg>
+          </div>
+          <div>
+            <div class="section-number">Section 02</div>
+            <h2>옷차림 가이드</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">레이어드가 핵심 — 산 아래와 정상의 기온 차이가 큽니다</p>
+          </div>
+        </div>
+        <div class="clothing-grid">
+          <div class="card clothing-item">
+            <div class="clothing-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div>
+            <div><div class="clothing-name">베이스 레이어</div><div class="clothing-desc">통기성과 수분 흡수 기능이 있는 기능성 이너웨어. 땀을 빠르게 배출합니다.</div></div>
+          </div>
+          <div class="card clothing-item">
+            <div class="clothing-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <div><div class="clothing-name">중간 레이어</div><div class="clothing-desc">가벼운 양털, 스웨터 또는 집업 후드. 산 정상 체감온도에 대비합니다.</div></div>
+          </div>
+          <div class="card clothing-item">
+            <div class="clothing-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>
+            <div><div class="clothing-name">방수 아우터</div><div class="clothing-desc">방수·방풍 자켓 필수. 비가 자주 와서 우비와 함께 준비하세요.</div></div>
+          </div>
+          <div class="card clothing-item">
+            <div class="clothing-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M4 16v-4a8 8 0 0 1 16 0v4"/><path d="M2 16h20"/></svg></div>
+            <div><div class="clothing-name">트레킹화</div><div class="clothing-desc">미끄럼 방지 기능이 있는 등산화. 비 온 뒤 바위길이 매우 미끄럽습니다.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAJOR SPOTS WITH HISTORY -->
+    <section id="sec-spots" style="padding: 0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21V11l6-3v13"/></svg>
+          </div>
+          <div>
+            <div class="section-number">Section 03</div>
+            <h2>주요 명소와 역사</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">수억 년의 자연이 빚어낸 유네스코 세계자연유산</p>
+          </div>
+        </div>
+
+        <!-- Spot 1: Tianmen Mountain -->
+        <div class="card spot-card">
+          <div class="spot-image-wrapper">
+            <img class="spot-image-bg" src="tianmenshan.png" alt="천문산 천문동과 999계단" loading="lazy">
+          </div>
+          <div class="spot-content">
+            <div class="spot-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+              필수 코스
+            </div>
+            <h3 class="spot-title">천문산 (天门山)</h3>
+            <div class="spot-history-detail">
+              <p>해발 1,518m의 장가계 시내에서 가장 높은 산으로, 장가계를 대표하는 성산(聖山)입니다. 기원전 263년 삼국시대 오나라 영안 6년에 거대한 절벽이 갈라지면서 높이 131.5m, 폭 57m의 천연 동굴 '천문동(天门洞)'이 형성되었다고 전해집니다. 이 천문동은 세계에서 가장 높은 자연 아치형 동굴로, 하늘로 통하는 문이라는 뜻에서 이름이 붙여졌습니다.</p>
+              <p>시내 중심에서 출발하는 세계 최장(7.5km) 로프웨이 케이블카는 약 30분간 구름 위를 유영하는 듯한 경험을 선사합니다. 해발 1,400m 절벽에 매달린 유리잔도(鬼谷棧道)는 발 아래로 수직 절벽이 내려다보여 아찔한 스릴을 느끼게 하며, 천문동까지 이어지는 999계단은 '하늘로 오르는 계단'이라 불립니다.</p>
+              <div class="spot-highlight">
+                <span class="spot-highlight-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+                <span class="spot-highlight-text">절벽 위에 세워진 천문산사(天门山寺)는 당나라(唐) 때 창건된 고찰로, 구름 속에 떠 있는 듯한 모습이 장관입니다. 매년 1,500만 명 이상이 방문합니다.</span>
+              </div>
+            </div>
+            <div class="spot-tags">
+              <span class="spot-tag">해발 1,518m</span><span class="spot-tag">유리잔도</span>
+              <span class="spot-tag">999계단</span><span class="spot-tag">세계 최장 케이블카</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spot 2: Yuanjiajie -->
+        <div class="card spot-card">
+          <div class="spot-image-wrapper">
+            <img class="spot-image-bg" src="https://images.unsplash.com/photo-1513415756790-2ac1db1297d0?w=1200&h=600&fit=crop" alt="원가계 아바타 할렐루야산" loading="lazy">
+          </div>
+          <div class="spot-content">
+            <div class="spot-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+              아바타 촬영지
+            </div>
+            <h3 class="spot-title">원가계 (袁家界)</h3>
+            <div class="spot-history-detail">
+              <p>무릉원(武陵源) 핵심 지역으로 3,000개 이상의 석영사암 기둥이 밀집한 곳입니다. 약 3억 8천만 년 전 데본기 시대 해저에 퇴적된 석영사암이 지각 변동으로 융기한 후, 수억 년간의 풍화와 침식을 거쳐 현재의 기둥 모양 지형이 형성되었습니다. 지질학적으로 극히 드문 '석영사암봉림(石英砂岩峰林)' 지형입니다.</p>
+              <p>2009년 제임스 카메론 감독의 영화 아바타에서 판도라 행성의 '할렐루야 산'의 모티브가 되면서 세계적으로 유명해졌습니다. 높이 1,080m의 남천일주(南天一柱)는 2010년 1월 25일 공식적으로 '아바타 할렐루야산(哈利路亚山)'으로 개명되었습니다. 두 봉우리를 잇는 천연 석교 '천하제일교(天下第一桥)'는 높이 357m, 폭 2m, 길이 20m로, 세계 최고 높이의 자연 석교입니다.</p>
+              <div class="spot-highlight">
+                <span class="spot-highlight-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+                <span class="spot-highlight-text">백룡 엘리베이터(百龙电梯)는 326m 수직 절벽을 단 1분 30초 만에 올라가는 야외 엘리베이터로, 기네스북에 등재되었습니다. 원가계로 올라가는 가장 빠르고 짜릿한 방법입니다.</span>
+              </div>
+            </div>
+            <div class="spot-tags">
+              <span class="spot-tag">아바타 할렐루야산</span><span class="spot-tag">천하제일교</span><span class="spot-tag">백룡 엘리베이터</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spot 3: Jinbian Creek -->
+        <div class="card spot-card">
+          <div class="spot-image-wrapper">
+            <img class="spot-image-bg" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=600&fit=crop" alt="금편계곡 자연 트레킹" loading="lazy">
+          </div>
+          <div class="spot-content">
+            <div class="spot-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              힐링 트레킹
+            </div>
+            <h3 class="spot-title">금편계곡 (金鞭溪)</h3>
+            <div class="spot-history-detail">
+              <p>총 길이 5,700m의 자연계곡으로, 장가계 삼림공원의 심장부를 관통합니다. 높이 380m의 금편암(金鞭岩) 옆을 흐르는 맑은 시내를 따라 걷는 트레킹 코스로, 양쪽으로 기암절벽이 솟아 있고 수목이 울창하여 '세계에서 가장 아름다운 계곡'이라 불립니다. 수질이 매우 깨끗하여 1급수 지표종인 도롱뇽이 서식합니다.</p>
+              <p>1992년 유네스코 세계자연유산에 등재된 무릉원 경관의 핵심이며, 2004년에는 유네스코 세계지질공원으로도 지정되었습니다. 코스를 따라 걸으면 야생 미후(猕猴, 히말라야원숭이)를 자주 만날 수 있으며, 3월 중순에는 이른 봄꽃과 함께 안개가 피어오르는 몽환적인 풍경을 감상할 수 있습니다.</p>
+              <div class="spot-highlight">
+                <span class="spot-highlight-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+                <span class="spot-highlight-text">금편계곡은 2~3시간이면 완주할 수 있으며, 중간에 원가계로 올라가는 백룡 엘리베이터 탑승구가 있어 일정을 효율적으로 연결할 수 있습니다.</span>
+              </div>
+            </div>
+            <div class="spot-tags">
+              <span class="spot-tag">5.7km 계곡</span><span class="spot-tag">UNESCO 유산</span><span class="spot-tag">야생 원숭이</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spot 4: Tianzi Mountain -->
+        <div class="card spot-card">
+          <div class="spot-image-wrapper">
+            <img class="spot-image-bg" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&h=600&fit=crop" alt="천자산 운해" loading="lazy">
+          </div>
+          <div class="spot-content">
+            <div class="spot-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+              운해 명소
+            </div>
+            <h3 class="spot-title">천자산 (天子山)</h3>
+            <div class="spot-history-detail">
+              <p>해발 1,262m. 원나라 말기(1353년) 토가족(土家族) 수장 '향대곤(向大坤)'이 이곳에서 원나라 압정에 맞서 농민 봉기를 이끌며 스스로를 '천자(天子, 하늘의 아들)'라 칭한 데서 이름이 유래했습니다. 봉기가 실패한 후 향대곤은 이 산의 신봉대(神峰臺)에서 투신하였다고 전해지며, 이후 토가족 사이에서 신성한 산으로 숭배되었습니다.</p>
+              <p>연간 200일 이상 안개에 가려져 있어 '신비의 산'이라 불리며, 특히 비 온 직후 펼쳐지는 운해(雲海) 풍경이 가장 유명합니다. 3월 중순은 운해를 볼 확률이 높은 시기입니다. 하룡공원(賀龍公園)에서 바라보는 어필봉(御筆峰), 선녀산화(仙女散花) 등의 봉우리 군락은 한폭의 수묵화를 연상시킵니다.</p>
+              <div class="spot-highlight">
+                <span class="spot-highlight-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+                <span class="spot-highlight-text">천자산에서 십리화랑(十里画廊)까지 이어지는 코스는 모노레일로 편하게 이동할 수 있으며, 약 5km의 협곡 양쪽에 기암괴석이 병풍처럼 펼쳐져 '10리 길이의 그림 갤러리'라는 이름을 얻었습니다.</span>
+              </div>
+            </div>
+            <div class="spot-tags">
+              <span class="spot-tag">해발 1,262m</span><span class="spot-tag">연 200일+ 운해</span><span class="spot-tag">토가족 역사</span><span class="spot-tag">십리화랑</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spot 5: Baofeng Lake -->
+        <div class="card spot-card">
+          <div class="spot-image-wrapper">
+            <img class="spot-image-bg" src="https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?w=1200&h=600&fit=crop" alt="보봉호 유람선" loading="lazy">
+          </div>
+          <div class="spot-content">
+            <div class="spot-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12C2 7 7 2 12 2s10 5 10 10"/><path d="M12 22c-5 0-10-5-10-10"/></svg>
+              수상 관광
+            </div>
+            <h3 class="spot-title">보봉호 (宝峰湖)</h3>
+            <div class="spot-history-detail">
+              <p>해발 약 400m 고지에 위치한 반자연·반인공 호수로, 무릉원 경관의 일부로서 유네스코 세계자연유산에 포함됩니다. 1970년대 수리 시설 건설 과정에서 산골짜기에 댐을 쌓아 현재의 호수가 형성되었으며, 자연의 절벽과 인공 댐이 어우러져 독특한 경관을 만들어 냈습니다. 호수 둘레는 약 2.5km이며, 수심은 가장 깊은 곳이 72m에 달합니다.</p>
+              <p>사방이 깎아지른 절벽으로 둘러싸인 에메랄드빛 호수에서 유람선을 타면, 토가족 뱃사공이 전통 민요를 부르며 호수를 안내합니다. 맑은 날에는 수면에 주변 봉우리가 거울처럼 비치며, 안개 낀 날에는 선경(仙境)에 들어선 듯한 분위기를 연출합니다. '인간 세상의 요지(人间瑶池)'라 불리는 곳입니다.</p>
+              <div class="spot-highlight">
+                <span class="spot-highlight-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+                <span class="spot-highlight-text">유람선 투어는 약 30분 소요되며, 호수 위에서 들려오는 토가족 민요의 메아리가 절벽에 반사되어 자연 그대로의 음향 효과를 만들어냅니다.</span>
+              </div>
+            </div>
+            <div class="spot-tags">
+              <span class="spot-tag">유람선 30분</span><span class="spot-tag">토가족 민요</span><span class="spot-tag">에메랄드 호수</span><span class="spot-tag">수심 72m</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ITINERARY -->
+    <section id="sec-itinerary" style="padding: 0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <div>
+            <div class="section-number">Section 04</div>
+            <h2>추천 여행 코스 (4박 5일)</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">핵심 명소를 효율적으로 돌아보는 최적의 일정</p>
+          </div>
+        </div>
+        <div class="card" style="padding:36px;">
+          <div class="itinerary-timeline">
+            <div class="itinerary-day">
+              <div class="day-label">Day 1</div>
+              <div class="day-title">인천 → 장가계 도착</div>
+              <div class="day-desc">장가계 공항 도착 후 호텔 체크인. 시내 '용문고정(溶门古镇)' 야시장에서 후난 로컬 음식 체험. 이동 피로를 풀며 적응하는 시간.</div>
+            </div>
+            <div class="itinerary-day">
+              <div class="day-label">Day 2</div>
+              <div class="day-title">천문산 종일 관광</div>
+              <div class="day-desc">세계 최장 케이블카(7.5km) 탑승 → 유리잔도 · 귀곡잔도 → 천문산사 → 천문동 999계단. 오후에 천문호선쇼 관람(선택). 체력 소모가 큰 날이므로 편한 복장 필수.</div>
+            </div>
+            <div class="itinerary-day">
+              <div class="day-label">Day 3</div>
+              <div class="day-title">장가계 국립공원 · 원가계</div>
+              <div class="day-desc">백룡 엘리베이터 탑승 → 원가계(아바타 촬영지) → 천하제일교 · 미혼대 → 오후 금편계곡 트레킹(5.7km). 자연 속 힐링의 하루.</div>
+            </div>
+            <div class="itinerary-day">
+              <div class="day-label">Day 4</div>
+              <div class="day-title">천자산 · 십리화랑 · 보봉호</div>
+              <div class="day-desc">천자산 운해 감상 → 모노레일로 십리화랑 관람 → 오후 보봉호 유람선. 저녁 토가족 전통 공연 관람 및 기념품 쇼핑.</div>
+            </div>
+            <div class="itinerary-day">
+              <div class="day-label">Day 5</div>
+              <div class="day-title">자유시간 · 귀국</div>
+              <div class="day-desc">오전 황룡동굴(선택) 또는 시내 자유시간. 기념품 구입 후 장가계 공항 이동 → 인천 도착.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHECKLIST + EMERGENCY -->
+    <section id="sec-checklist" style="padding: 0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div>
+            <div class="section-number">Section 05</div>
+            <h2>여행 준비물 체크리스트</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">장가계에서 꼭 필요한 필수 아이템들</p>
+          </div>
+        </div>
+        <div class="checklist-grid">
+          <div class="card checklist-category">
+            <div class="checklist-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              서류 & 통신
+            </div>
+            <ul class="checklist-items">
+              <li><span class="check-icon">✓</span>여권 (유효기간 6개월 이상)</li>
+              <li><span class="check-icon">✓</span>15일 무비자 체류 가능 (2026년 말까지)</li>
+              <li><span class="check-icon">✓</span>여행자보험 가입</li>
+              <li><span class="check-icon">✓</span>eSIM 또는 포켓 와이파이</li>
+              <li><span class="check-icon">✓</span>VPN 앱 (카카오톡·구글 접속용)</li>
+            </ul>
+          </div>
+          <div class="card checklist-category">
+            <div class="checklist-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              의류 & 장비
+            </div>
+            <ul class="checklist-items">
+              <li><span class="check-icon">✓</span>레이어드 의류 (3겹 이상)</li>
+              <li><span class="check-icon">✓</span>방수 자켓 + 접이식 우비</li>
+              <li><span class="check-icon">✓</span>미끄럼 방지 트레킹화</li>
+              <li><span class="check-icon">✓</span>가벼운 백팩 (20L 정도)</li>
+              <li><span class="check-icon">✓</span>모자 · 선글라스 · 자외선 차단제</li>
+            </ul>
+          </div>
+          <div class="card checklist-category">
+            <div class="checklist-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              건강 & 위생
+            </div>
+            <ul class="checklist-items">
+              <li><span class="check-icon">✓</span>보온병 (따뜻한 물 휴대)</li>
+              <li><span class="check-icon">✓</span>상비약 · 소화제 · 파스</li>
+              <li><span class="check-icon">✓</span>개인 세면도구 (호텔 미비치)</li>
+              <li><span class="check-icon">✓</span>휴지 · 물티슈 (화장실용)</li>
+              <li><span class="check-icon">✓</span>귀마개 또는 껌 (고지대 기압차)</li>
+            </ul>
+          </div>
+          <div class="card checklist-category">
+            <div class="checklist-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              결제 & 기타
+            </div>
+            <ul class="checklist-items">
+              <li><span class="check-icon">✓</span>위안화 현금 (QR 결제 중심)</li>
+              <li><span class="check-icon">✓</span>알리페이 또는 위챗페이 설정</li>
+              <li><span class="check-icon">✓</span>보조 배터리</li>
+              <li><span class="check-icon">✓</span>귀국 시 검역신고서(Q코드)</li>
+              <li><span class="check-icon">✓</span>간식 · 에너지바</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- EMERGENCY CONTACTS -->
+        <div class="emergency-section" data-reveal>
+          <div class="section-header" style="margin-top:48px;">
+            <div class="section-icon" style="background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.15);">
+              <svg viewBox="0 0 24 24" style="stroke:var(--negative);"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="section-number" style="color:var(--negative);">Emergency</div>
+              <h2>비상 연락망</h2>
+              <p class="text-secondary" style="font-size:0.9rem;">만일의 상황에 대비하여 저장해두세요</p>
+            </div>
+          </div>
+          <div class="emergency-grid">
+            <div class="emergency-card">
+              <div class="emergency-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div>
+                <div class="emergency-name">중국 긴급 종합 (경찰)</div>
+                <div class="emergency-number">110</div>
+                <div class="emergency-note">24시간 / 영어 가능</div>
+              </div>
+            </div>
+            <div class="emergency-card">
+              <div class="emergency-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+              <div>
+                <div class="emergency-name">중국 응급 구조 (소방)</div>
+                <div class="emergency-number">119</div>
+                <div class="emergency-note">24시간 / 화재·구조</div>
+              </div>
+            </div>
+            <div class="emergency-card">
+              <div class="emergency-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+              <div>
+                <div class="emergency-name">중국 응급 의료 (앰뷸런스)</div>
+                <div class="emergency-number">120</div>
+                <div class="emergency-note">24시간 / 의료 응급</div>
+              </div>
+            </div>
+            <div class="emergency-card">
+              <div class="emergency-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div>
+                <div class="emergency-name">주중 한국대사관 (베이징)</div>
+                <div class="emergency-number">+86-10-8531-0700</div>
+                <div class="emergency-note">영사콜센터 (긴급)</div>
+              </div>
+            </div>
+            <div class="emergency-card">
+              <div class="emergency-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+              <div>
+                <div class="emergency-name">영사콜센터 (24시간)</div>
+                <div class="emergency-number">+82-2-3210-0404</div>
+                <div class="emergency-note">한국 외교부 / 한국어 가능</div>
+              </div>
+            </div>
+            <div class="emergency-card">
+              <div class="emergency-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+              <div>
+                <div class="emergency-name">중국 관광 불편 신고</div>
+                <div class="emergency-number">12301</div>
+                <div class="emergency-note">관광 분쟁·불편 접수</div>
+              </div>
+            </div>
+            <div class="emergency-card">
+              <div class="emergency-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+              <div>
+                <div class="emergency-name">카드 분실 신고 (VISA)</div>
+                <div class="emergency-number">+1-303-967-1096</div>
+                <div class="emergency-note">해외 긴급 콜렉트콜</div>
+              </div>
+            </div>
+            <div class="emergency-card">
+              <div class="emergency-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div>
+                <div class="emergency-name">여행자보험 긴급 연락</div>
+                <div class="emergency-number">보험사 별도 확인</div>
+                <div class="emergency-note">증권번호 메모 필수</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>장가계 여행 가이드 · 2026년 3월 중순 기준</p>
+      <p style="margin-top:4px;opacity:0.6;">출처: Trip.com, Tripstore, UNESCO, China Discovery, 주중 한국대사관</p>
+    </footer>
+
+  </main>
+
+  <!-- Section Navigation Dots -->
+  <nav class="section-nav" aria-label="섹션 내비게이션">
+    <a href="#sec-weather" title="날씨" class="nav-dot" data-section="sec-weather"></a>
+    <a href="#sec-clothing" title="옷차림" class="nav-dot" data-section="sec-clothing"></a>
+    <a href="#sec-spots" title="명소" class="nav-dot" data-section="sec-spots"></a>
+    <a href="#sec-itinerary" title="코스" class="nav-dot" data-section="sec-itinerary"></a>
+    <a href="#sec-checklist" title="준비물" class="nav-dot" data-section="sec-checklist"></a>
+    <span class="section-nav-label" id="navLabel">날씨</span>
+  </nav>
+
+  <script>
+    // === Menu ===
+    function toggleMenu() {
+      var dropdown = document.getElementById('vizMenuDropdown');
+      if (dropdown) dropdown.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.viz-menu')) {
+        var dropdown = document.getElementById('vizMenuDropdown');
+        if (dropdown) dropdown.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var dropdown = document.getElementById('vizMenuDropdown');
+        if (dropdown) dropdown.classList.remove('open');
+      }
+    });
+
+    // === Theme ===
+    var savedTheme = localStorage.getItem('viz-theme');
+    var currentTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    function applyTheme(t) {
+      document.documentElement.className = 'theme-' + t;
+      document.getElementById('themeIcon').textContent = t === 'dark' ? '🌙' : '☀️';
+      document.getElementById('themeLabel').textContent = t === 'dark' ? 'Dark' : 'Light';
+      localStorage.setItem('viz-theme', t);
+      currentTheme = t;
+      if (typeof onThemeChange === 'function') onThemeChange();
+    }
+    function cycleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+    applyTheme(currentTheme);
+
+    // === Scroll Reveal ===
+    document.querySelectorAll('[data-reveal]').forEach(function(el) { el.classList.add('reveal'); });
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
+
+    // === Number Counter ===
+    function animateCounters() {
+      document.querySelectorAll('[data-count]').forEach(function(el) {
+        if (el.dataset.counted) return;
+        el.dataset.counted = '1';
+        var target = parseFloat(el.dataset.count);
+        var suffix = el.dataset.suffix || '';
+        var start = performance.now();
+        var duration = 1400;
+        (function tick(now) {
+          var p = Math.min((now - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased).toLocaleString() + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        })(start);
+      });
+    }
+    var counterEl = document.querySelector('[data-count]');
+    if (counterEl) {
+      var cObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { animateCounters(); cObs.disconnect(); }
+        });
+      }, { threshold: 0.3 });
+      cObs.observe(counterEl);
+    }
+
+    // === Chart.js ===
+    var chartsBuilt = false;
+    function resetCanvas(id) {
+      var old = document.getElementById(id);
+      if (!old) return null;
+      var parent = old.parentNode;
+      var canvas = document.createElement('canvas');
+      canvas.id = id;
+      canvas.setAttribute('role', 'img');
+      canvas.setAttribute('aria-label', '장가계 3월 기온 변화 차트');
+      parent.replaceChild(canvas, old);
+      return canvas;
+    }
+    function buildCharts() {
+      if (typeof Chart === 'undefined') return;
+      var isDark = document.documentElement.classList.contains('theme-dark');
+      var textColor = isDark ? '#7a8494' : '#5b6b82';
+      var gridColor = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.05)';
+      var ctx = resetCanvas('tempChart');
+      if (!ctx) return;
+      var days = ['1','3','5','7','9','11','13','15','17','19','21','23','25','27','29','31'];
+      var highs = [10,11,12,13,14,15,14,16,15,17,16,18,17,19,18,19];
+      var lows = [2,3,3,4,4,5,5,6,5,6,6,7,7,8,7,8];
+      try {
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: days,
+            datasets: [
+              {
+                label: '최고 기온 (°C)', data: highs,
+                borderColor: isDark ? '#f43f5e' : '#e11d48',
+                backgroundColor: isDark ? 'rgba(244,63,94,0.08)' : 'rgba(225,29,72,0.08)',
+                fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 6, borderWidth: 2
+              },
+              {
+                label: '최저 기온 (°C)', data: lows,
+                borderColor: isDark ? '#22d3ee' : '#0891b2',
+                backgroundColor: isDark ? 'rgba(34,211,238,0.08)' : 'rgba(8,145,178,0.08)',
+                fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 6, borderWidth: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+              tooltip: { enabled: true, mode: 'index', intersect: false, padding: 12, cornerRadius: 8,
+                titleFont: { family: 'Noto Sans KR', size: 13 }, bodyFont: { family: 'Noto Sans KR', size: 12 } },
+              legend: { labels: { color: textColor, font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true, pointStyle: 'circle' } }
+            },
+            scales: {
+              x: { ticks: { color: textColor, font: { size: 11 }, maxRotation: 0, maxTicksLimit: 8 }, grid: { color: gridColor } },
+              y: { ticks: { color: textColor, font: { size: 11 }, callback: function(v) { return v + '°C'; } }, grid: { color: gridColor }, min: 0, max: 25 }
+            },
+            layout: { padding: { top: 10, right: 10, bottom: 0, left: 0 } }
+          }
+        });
+      } catch (error) { console.error('Chart creation failed:', error); }
+      chartsBuilt = true;
+    }
+    function onThemeChange() { chartsBuilt = false; buildCharts(); }
+    window.addEventListener('load', buildCharts);
+
+    // === Section Nav Observer ===
+    var navLabels = { 'sec-weather':'날씨', 'sec-clothing':'옷차림', 'sec-spots':'명소', 'sec-itinerary':'코스', 'sec-checklist':'준비물' };
+    var navObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          document.querySelectorAll('.nav-dot').forEach(function(dot) { dot.classList.toggle('active', dot.dataset.section === id); });
+          var label = document.getElementById('navLabel');
+          if (label && navLabels[id]) label.textContent = navLabels[id];
+        }
+      });
+    }, { threshold: 0.25 });
+    document.querySelectorAll('[id^="sec-"]').forEach(function(sec) { navObserver.observe(sec); });
+
+    // === Download PNG ===
+    async function downloadImage() {
+      var menu = document.querySelector('.viz-menu');
+      var nav = document.querySelector('.section-nav');
+      menu.style.display = 'none'; nav.style.display = 'none';
+      try {
+        var url = await htmlToImage.toPng(document.body, {
+          quality: 1, pixelRatio: 2,
+          filter: function(n) { return !n.classList || (!n.classList.contains('viz-menu') && !n.classList.contains('section-nav')); }
+        });
+        var a = document.createElement('a'); a.href = url;
+        a.download = 'zhangjiajie-travel-guide.png'; a.click();
+      } catch(e) { console.error('Download failed:', e); }
+      menu.style.display = ''; nav.style.display = '';
+    }
+  </script>
+</body>
+</html>

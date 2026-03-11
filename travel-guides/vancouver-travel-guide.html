@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vancouver Travel Guide — July 2026</title>
+  <meta name="description" content="Complete Vancouver travel guide with top attractions, tour recommendations, visa info for Korean passport holders, and practical travel tips.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html.theme-dark {
+      --bg: #06080a; --surface: #0f1215; --surface-hover: #181c20;
+      --border: rgba(255,255,255,0.06); --border-accent: rgba(56,189,248,0.18);
+      --text: #f0f0f0; --text-secondary: #7a8494;
+      --accent: #38bdf8; --accent-secondary: #a78bfa; --accent-glow: rgba(56,189,248,0.1);
+      --positive: #10b981; --negative: #f43f5e; --warning: #f59e0b;
+      --glass-bg: rgba(15,18,21,0.85); --glass-border: rgba(255,255,255,0.04);
+      --hero-gradient: linear-gradient(160deg, #03111e 0%, #0b1e30 30%, #091a22 60%, #060b10 100%);
+      --card-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.2);
+    }
+    html.theme-light {
+      --bg: #f7f8fa; --surface: #ffffff; --surface-hover: #f0f2f5;
+      --border: rgba(0,0,0,0.07); --border-accent: rgba(2,132,199,0.2);
+      --text: #0f172a; --text-secondary: #5b6b82;
+      --accent: #0284c7; --accent-secondary: #7c3aed; --accent-glow: rgba(2,132,199,0.08);
+      --positive: #059669; --negative: #e11d48; --warning: #d97706;
+      --glass-bg: rgba(255,255,255,0.8); --glass-border: rgba(0,0,0,0.04);
+      --hero-gradient: linear-gradient(160deg, #e0f2fe 0%, #dbeafe 30%, #e8f4f8 60%, #f0f4f8 100%);
+      --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    h1,h2,h3,h4 { color: var(--text); letter-spacing: -0.03em; line-height: 1.2; }
+    h1 { font-size: 3rem; font-weight: 800; }
+    h2 { font-size: 2rem; font-weight: 700; }
+    h3 { font-size: 1.4rem; font-weight: 600; }
+    p, li, td, th, span, label { color: var(--text); font-weight: 400; }
+    .text-secondary { color: var(--text-secondary); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+      box-shadow: var(--card-shadow);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .card:hover { border-color: var(--border-accent); }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    .animate { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .animate.d1 { animation-delay: .1s; } .animate.d2 { animation-delay: .2s; }
+    .animate.d3 { animation-delay: .3s; } .animate.d4 { animation-delay: .4s; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* MENU */
+    .viz-menu { position: fixed; top: 16px; right: 16px; z-index: 9999; }
+    .viz-menu-toggle {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--glass-bg); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); color: var(--text);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .viz-menu-toggle:hover { background: var(--surface-hover); border-color: var(--border-accent); }
+    .viz-menu-dropdown {
+      position: absolute; top: 52px; right: 0; min-width: 200px;
+      background: var(--glass-bg); backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border); border-radius: 14px; padding: 8px;
+      opacity: 0; visibility: hidden; transform: translateY(-8px) scale(0.96);
+      transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+    }
+    .viz-menu-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+    .viz-menu-dropdown button {
+      width: 100%; padding: 10px 14px; border: none; border-radius: 10px;
+      background: transparent; color: var(--text); font-size: 14px;
+      font-family: inherit; cursor: pointer; text-align: left;
+      display: flex; align-items: center; gap: 10px; transition: background 0.15s;
+    }
+    .viz-menu-dropdown button:hover { background: var(--surface-hover); }
+
+    /* HERO */
+    .hero {
+      background: var(--hero-gradient); padding: 100px 24px 80px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 80%, var(--accent-glow) 0%, transparent 50%);
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+      background: linear-gradient(to top, var(--bg), transparent); pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--glass-bg); backdrop-filter: blur(12px);
+      border: 1px solid var(--border-accent); border-radius: 100px;
+      padding: 8px 20px; font-size: 0.85rem; color: var(--accent); font-weight: 500; margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 4rem); font-weight: 800; margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub { font-size: 1.15rem; color: var(--text-secondary); max-width: 620px; margin: 0 auto; line-height: 1.7; }
+    .hero-divider { width: 60px; height: 3px; border-radius: 2px; margin: 32px auto 0; background: linear-gradient(90deg, var(--accent), var(--accent-secondary)); }
+
+    /* SECTION HEADERS */
+    .sec-hdr { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .sec-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--accent-glow); border: 1px solid var(--border-accent);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .sec-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .sec-num { font-size: 0.7rem; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+
+    /* SPOT CARDS */
+    .spot-card { overflow: hidden; margin-bottom: 24px; border-radius: 20px; display: flex; }
+    .spot-img { flex: 0 0 42%; position: relative; overflow: hidden; min-height: 380px; }
+    .spot-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .spot-body { flex: 1 1 58%; padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+    .spot-badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px;
+      border-radius: 100px; width: fit-content; background: var(--accent-glow);
+      color: var(--accent); font-size: 0.75rem; font-weight: 600; margin-bottom: 12px;
+      border: 1px solid var(--border-accent);
+    }
+    .spot-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+    .spot-desc p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 10px; }
+    .spot-tip {
+      display: flex; align-items: flex-start; gap: 10px; padding: 14px 18px; margin-top: 14px;
+      background: var(--accent-glow); border: 1px solid var(--border-accent); border-radius: 12px; font-size: 0.85rem;
+    }
+    .spot-tip-icon { flex-shrink: 0; color: var(--accent); margin-top: 2px; }
+    .spot-tip-text { color: var(--text-secondary); line-height: 1.6; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .tag { padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; background: var(--surface-hover); border: 1px solid var(--border); color: var(--text-secondary); }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .stat-card { text-align: center; padding: 28px 16px; position: relative; overflow: hidden; }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .stat-val { font-size: 2.8rem; font-weight: 800; color: var(--accent); line-height: 1.1; margin-bottom: 6px; }
+    .stat-lbl { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
+
+    /* TOURS TABLE */
+    .tour-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .tour-table th {
+      text-align: left; padding: 14px 16px; font-weight: 600; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary);
+      border-bottom: 2px solid var(--border); background: var(--surface-hover);
+    }
+    .tour-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .tour-table tr:hover td { background: var(--surface-hover); }
+    .tour-platform {
+      display: inline-flex; padding: 3px 10px; border-radius: 6px; font-size: 0.72rem;
+      font-weight: 600; letter-spacing: 0.02em;
+    }
+    .platform-viator { background: rgba(0,166,81,0.1); color: #00a651; border: 1px solid rgba(0,166,81,0.2); }
+    .platform-mrt { background: rgba(56,189,248,0.1); color: var(--accent); border: 1px solid var(--border-accent); }
+    .platform-gyg { background: rgba(255,87,34,0.1); color: #ff5722; border: 1px solid rgba(255,87,34,0.2); }
+    .tour-price { font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+    /* CHECKLIST */
+    .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .check-cat { padding: 24px; }
+    .check-cat-title {
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .check-items { list-style: none; }
+    .check-items li {
+      font-size: 0.85rem; color: var(--text-secondary);
+      padding: 7px 0; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+    }
+    .chk { color: var(--positive); flex-shrink: 0; margin-top: 2px; font-weight: 700; }
+
+    /* INFO CARD */
+    .info-card {
+      padding: 24px 28px; border-radius: 14px; margin-bottom: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+    }
+    .info-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .info-card p, .info-card li { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
+    .info-card ul { list-style: none; padding: 0; }
+    .info-card ul li { padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; }
+    .info-card ul li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .alert-box {
+      padding: 16px 20px; border-radius: 12px; margin-top: 16px; font-size: 0.85rem;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .alert-warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: var(--warning); }
+    .alert-success { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); color: var(--positive); }
+
+    /* ITINERARY */
+    .itin-timeline { position: relative; padding-left: 44px; }
+    .itin-timeline::before {
+      content: ''; position: absolute; left: 16px; top: 8px; bottom: 8px;
+      width: 2px; background: linear-gradient(180deg, var(--accent), var(--accent-secondary), var(--border));
+    }
+    .itin-day { position: relative; margin-bottom: 32px; }
+    .itin-day::before {
+      content: ''; position: absolute; left: -32px; top: 4px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--accent); border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+    .day-lbl { font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .day-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    .day-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+
+    /* NAV */
+    .sec-nav {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 8px; z-index: 9998;
+      background: var(--glass-bg); backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border); border-radius: 100px;
+      padding: 10px 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    .sec-nav a {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--text-secondary); opacity: 0.25;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1); display: block; text-decoration: none;
+    }
+    .sec-nav a:hover { opacity: 0.6; transform: scale(1.2); }
+    .sec-nav a.active { opacity: 1; background: var(--accent); transform: scale(1.4); box-shadow: 0 0 8px var(--accent-glow); }
+    .nav-lbl { font-size: 0.7rem; color: var(--text-secondary); font-weight: 600; margin-left: 8px; white-space: nowrap; }
+
+    .footer { text-align: center; padding: 48px 24px; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--border); }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background: radial-gradient(ellipse at 75% 15%, var(--accent-glow) 0%, transparent 45%),
+        radial-gradient(ellipse at 25% 85%, rgba(167,139,250,0.04) 0%, transparent 45%);
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.2rem; }
+      .spot-card { flex-direction: column; }
+      .spot-img { flex: none; min-height: 220px; max-height: 260px; }
+      .spot-body { padding: 24px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .container { padding: 0 16px; }
+      section { padding-left: 16px !important; padding-right: 16px !important; }
+      .tour-table { font-size: 0.78rem; }
+      .tour-table th, .tour-table td { padding: 10px 8px; }
+    }
+    @media (max-width: 375px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .card { padding: 16px; }
+      .stat-val { font-size: 2rem; }
+      .hero { padding: 60px 16px 50px; }
+    }
+    @media print {
+      body { background: white !important; color: black !important; }
+      .viz-menu, .sec-nav { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .card { break-inside: avoid; border: 1px solid #ddd; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MENU -->
+  <div class="viz-menu">
+    <button class="viz-menu-toggle" onclick="toggleMenu()" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/>
+      </svg>
+    </button>
+    <div class="viz-menu-dropdown" id="vizMenuDropdown">
+      <button onclick="cycleTheme()"><span id="themeIcon">🌙</span><span id="themeLabel">Dark</span></button>
+      <button onclick="window.print()"><span>🖨️</span><span>Print / PDF</span></button>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- HERO -->
+    <section class="hero animate">
+      <div class="container">
+        <div class="hero-badge animate d1">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          British Columbia & Alberta, Canada · July 2026
+        </div>
+        <h1 class="hero-title animate d2">Vancouver Travel Guide</h1>
+        <p class="hero-sub animate d3">Where mountains meet the Pacific — a complete guide to the most livable city in the world, including top attractions, guided tours, entry requirements, and practical tips</p>
+        <div class="hero-divider animate d4"></div>
+      </div>
+    </section>
+
+    <!-- WEATHER -->
+    <section id="sec-weather" style="padding:72px 24px;" data-reveal>
+      <div class="container">
+        <div class="sec-hdr">
+          <div class="sec-icon"><svg viewBox="0 0 24 24"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg></div>
+          <div>
+            <div class="sec-num">Section 01</div>
+            <h2>July Weather in Vancouver</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">Warm, sunny, and dry — the best month to visit Vancouver</p>
+          </div>
+        </div>
+        <div class="stats-grid" style="margin-bottom:28px;">
+          <div class="card stat-card"><div class="stat-val">22°C</div><div class="stat-lbl">Avg High (Jul)</div></div>
+          <div class="card stat-card"><div class="stat-val">14°C</div><div class="stat-lbl">Avg Low (Jul)</div></div>
+          <div class="card stat-card"><div class="stat-val">6</div><div class="stat-lbl">Rainy Days / Month</div></div>
+          <div class="card stat-card"><div class="stat-val">16h</div><div class="stat-lbl">Daylight Hours</div></div>
+        </div>
+        <div class="info-card">
+          <h4>☀️ What to Expect</h4>
+          <p>July is Vancouver's warmest and driest month — the perfect time to explore! Expect sunny skies with temperatures between 14–24°C. Long daylight hours (sunrise ~5:15am, sunset ~9:20pm) give you plenty of time to explore. The ocean warms up enough for brave swimmers, and the mountains are fully snow-free for hiking. Pack sunscreen, sunglasses, and a light jacket for cooler evenings.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOP ATTRACTIONS -->
+    <section id="sec-spots" style="padding:0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="sec-hdr">
+          <div class="sec-icon"><svg viewBox="0 0 24 24"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21V11l6-3v13"/></svg></div>
+          <div>
+            <div class="sec-num">Section 02</div>
+            <h2>Top Attractions</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">The most iconic places in Vancouver, BC & the Canadian Rockies</p>
+          </div>
+        </div>
+
+        <!-- Stanley Park -->
+        <div class="card spot-card">
+          <div class="spot-img"><img src="stanley_park.png" alt="Stanley Park Seawall with Vancouver skyline" loading="lazy"></div>
+          <div class="spot-body">
+            <div class="spot-badge">⭐ #1 Most Visited</div>
+            <h3 class="spot-title">Stanley Park</h3>
+            <div class="spot-desc">
+              <p>A 1,000-acre urban oasis on a peninsula surrounded by the Pacific Ocean. The 9km Seawall is one of the world's longest uninterrupted waterfront paths — perfect for walking, jogging, or biking with stunning views of the harbor, downtown skyline, and North Shore mountains.</p>
+              <p>Home to the Vancouver Aquarium, centuries-old totem poles at Brockton Point, Prospect Point lookout, and pristine beaches including Third Beach and Second Beach. Over 8 million visitors annually.</p>
+              <div class="spot-tip">
+                <span class="spot-tip-icon">ℹ️</span>
+                <span class="spot-tip-text">Rent a bike at Denman Street (~$8/hr) and ride the full Seawall loop. Best views at sunset from the west side facing English Bay.</span>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">Free Entry</span><span class="tag">Seawall 9km</span>
+              <span class="tag">Totem Poles</span><span class="tag">Aquarium</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Capilano Suspension Bridge -->
+        <div class="card spot-card">
+          <div class="spot-img"><img src="capilano_bridge.png" alt="Capilano Suspension Bridge in misty rainforest" loading="lazy"></div>
+          <div class="spot-body">
+            <div class="spot-badge">🌲 Pacific Northwest Rainforest</div>
+            <h3 class="spot-title">Capilano Suspension Bridge Park</h3>
+            <div class="spot-desc">
+              <p>Walk 137 meters across a swaying suspension bridge, 70 meters above the Capilano River and ancient rainforest. Built in 1889, this is one of Vancouver's oldest and most thrilling attractions. The park includes the Treetops Adventure (7 bridges through Douglas fir canopy) and Cliffwalk (a cantilevered walkway along the granite cliff face).</p>
+              <div class="spot-tip">
+                <span class="spot-tip-icon">ℹ️</span>
+                <span class="spot-tip-text">Free shuttle bus from downtown (Canada Place). Admission: ~CAD $67 adults. Buy tickets online to skip the line.</span>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">CAD $67 Adult</span><span class="tag">137m Bridge</span>
+              <span class="tag">Treetops Adventure</span><span class="tag">Cliffwalk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grouse Mountain -->
+        <div class="card spot-card">
+          <div class="spot-img"><img src="grouse_mountain.png" alt="Grouse Mountain SkyTram view of Vancouver" loading="lazy"></div>
+          <div class="spot-body">
+            <div class="spot-badge">🏔️ Best Skyline View</div>
+            <h3 class="spot-title">Grouse Mountain — The Peak of Vancouver</h3>
+            <div class="spot-desc">
+              <p>Called "The Peak of Vancouver," Grouse Mountain offers the most spectacular panoramic view of the entire city, ocean, and surrounding mountains from 1,231m elevation. Take the SkyTram gondola for a breathtaking 8-minute ride above the treetops.</p>
+              <p>Year-round activities include the Grouse Grind hiking trail (2.9km of steep switchbacks known as "Mother Nature's StairMaster"), wildlife refuge with grizzly bears, ziplines, and skiing in winter. The mountain biking park opened in 2025.</p>
+              <div class="spot-tip">
+                <span class="spot-tip-icon">ℹ️</span>
+                <span class="spot-tip-text">SkyTram ticket: ~CAD $70 adults (includes mountain-top attractions). The Grouse Grind hike is free but you need a SkyTram ticket to ride down.</span>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">1,231m Elevation</span><span class="tag">SkyTram Gondola</span>
+              <span class="tag">Grouse Grind</span><span class="tag">Bear Refuge</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Granville Island -->
+        <div class="card spot-card">
+          <div class="spot-img"><img src="granville_island.png" alt="Granville Island Public Market and Aquabus" loading="lazy"></div>
+          <div class="spot-body">
+            <div class="spot-badge">🎨 Food & Culture Hub</div>
+            <h3 class="spot-title">Granville Island</h3>
+            <div class="spot-desc">
+              <p>A vibrant cultural peninsula on False Creek, famous for the Granville Island Public Market — one of North America's top food markets. Browse 50+ permanent vendors offering fresh BC salmon, artisan cheeses, handmade chocolates, and local produce.</p>
+              <p>Beyond the market, explore art studios, theater venues, craft breweries, and the colorful Aquabus ferry boats. A former industrial area transformed into Vancouver's creative heart since the 1970s.</p>
+              <div class="spot-tip">
+                <span class="spot-tip-icon">ℹ️</span>
+                <span class="spot-tip-text">Take the Aquabus mini-ferry from downtown (~CAD $4). The market is open daily 9am–7pm. Come hungry — the food here is incredible.</span>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">Free Entry</span><span class="tag">Public Market</span>
+              <span class="tag">Aquabus Ferry</span><span class="tag">Craft Breweries</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gastown -->
+        <div class="card spot-card">
+          <div class="spot-img"><img src="gastown_steamclock.png" alt="Gastown Steam Clock at dusk" loading="lazy"></div>
+          <div class="spot-body">
+            <div class="spot-badge">🏛️ Historic District</div>
+            <h3 class="spot-title">Gastown & The Steam Clock</h3>
+            <div class="spot-desc">
+              <p>Vancouver's oldest neighborhood, founded in 1867, features charming cobblestone streets, Victorian architecture, and the iconic Gastown Steam Clock — one of only a few steam-powered clocks in the world. It chimes and releases steam every 15 minutes, drawing crowds around the clock.</p>
+              <p>The area is packed with upscale boutiques, indie galleries, rooftop cocktail bars, and some of Vancouver's best restaurants. Water Street is the main artery — walk east to see the Gassy Jack statue, honoring the district's founder.</p>
+              <div class="spot-tip">
+                <span class="spot-tip-icon">ℹ️</span>
+                <span class="spot-tip-text">Best at dusk when the warm street lighting creates a magical atmosphere. Join a free walking tour or a Gastown food tour (~CAD $80) for the full experience.</span>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">Free to Explore</span><span class="tag">Steam Clock</span>
+              <span class="tag">Food & Nightlife</span><span class="tag">Cobblestone Streets</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vancouver Lookout -->
+        <div class="card spot-card">
+          <div class="spot-img"><img src="vancouver_lookout.png" alt="Vancouver Lookout observation deck panoramic view" loading="lazy"></div>
+          <div class="spot-body">
+            <div class="spot-badge">🏙️ Skyscraper View</div>
+            <h3 class="spot-title">Vancouver Lookout at Harbour Centre</h3>
+            <div class="spot-desc">
+              <p>Ride a glass elevator 168.6 meters up to the observation deck for a stunning 360-degree panoramic view of the entire city. See the cruise ships at Canada Place, Stanley Park, the North Shore mountains, and on clear days, Mount Baker in Washington State, USA.</p>
+              <p>Your ticket is valid all day — come for the daytime cityscape and return for sunset and the sparkling night skyline. It's the fastest way to orient yourself in Vancouver.</p>
+              <div class="spot-tip">
+                <span class="spot-tip-icon">ℹ️</span>
+                <span class="spot-tip-text">Admission: ~CAD $19 adults. Ticket valid all day — visit twice for day and night views. Located at 555 W Hastings Street downtown.</span>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">CAD $19</span><span class="tag">168m Height</span>
+              <span class="tag">360° View</span><span class="tag">All-Day Pass</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Joffre Lakes -->
+        <div class="card spot-card">
+          <div class="spot-img"><img src="joffre_lakes.png" alt="Joffre Lakes turquoise glacial lake" loading="lazy"></div>
+          <div class="spot-body">
+            <div class="spot-badge">💎 Turquoise Glacial Lakes</div>
+            <h3 class="spot-title">Joffre Lakes Provincial Park</h3>
+            <div class="spot-desc">
+              <p>Three jaw-dropping turquoise-blue, glacier-fed lakes nestled in the Coast Mountains, about 2.5 hours east of Vancouver along the Sea-to-Sky Highway. The stunning color comes from glacial silt ("rockflour") suspended in the water. The 9.5km round-trip trail passes all three lakes — Lower, Middle, and Upper — each more beautiful than the last.</p>
+              <p>Upper Joffre Lake offers dramatic views of Matier Glacier and Joffre Peak. The hike gains about 400m elevation and takes 3–4 hours round trip. It's one of the most Instagrammed spots in all of British Columbia.</p>
+              <div class="spot-tip">
+                <span class="spot-tip-icon">ℹ️</span>
+                <span class="spot-tip-text"><strong>Free day-use pass required</strong> (ages 13+). Reserve online at bcparks.ca — passes open 7am, 2 days before your visit. No cell service in the park, so download your pass beforehand. Check for seasonal closures before going!</span>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">Free (Pass Required)</span><span class="tag">9.5km Hike</span>
+              <span class="tag">Glacial Lakes</span><span class="tag">Sea-to-Sky Highway</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banff National Park -->
+        <div class="card spot-card">
+          <div class="spot-img"><img src="banff_national_park.png" alt="Lake Louise in Banff National Park" loading="lazy"></div>
+          <div class="spot-body">
+            <div class="spot-badge">🏔️ Canadian Rocky Mountains</div>
+            <h3 class="spot-title">Banff National Park & Lake Louise</h3>
+            <div class="spot-desc">
+              <p>Canada's first and most famous national park, established in 1885 in the heart of the Canadian Rockies (Alberta). The iconic Lake Louise — with its impossibly turquoise waters framed by the Victoria Glacier — is one of the most photographed spots on Earth. Rent a canoe and paddle across the emerald surface for an unforgettable experience.</p>
+              <p>The park offers world-class attractions: Moraine Lake, the Banff Gondola to Sulphur Mountain summit (2,281m), the Icefields Parkway drive, Johnston Canyon hike, and the charming town of Banff itself. July is peak season with warm weather perfect for hiking and wildlife spotting (bears, elk, mountain goats).</p>
+              <div class="spot-tip">
+                <span class="spot-tip-icon">ℹ️</span>
+                <span class="spot-tip-text">Banff is ~850km east of Vancouver (10-hour drive or 4-day tour). Parks Canada pass: CAD $11/day or $72.25/year. July is peak season — book accommodation and tours well in advance!</span>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">Lake Louise</span><span class="tag">Moraine Lake</span>
+              <span class="tag">Banff Gondola</span><span class="tag">Icefields Parkway</span><span class="tag">Since 1885</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOUR GUIDE RECOMMENDATIONS -->
+    <section id="sec-tours" style="padding:0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="sec-hdr">
+          <div class="sec-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div>
+            <div class="sec-num">Section 03</div>
+            <h2>Recommended Tours & Guides</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">Top-rated guided experiences from Viator, MyRealTrip, and GetYourGuide</p>
+          </div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="overflow-x:auto;">
+            <table class="tour-table">
+              <thead>
+                <tr><th>Tour</th><th>Platform</th><th>Duration</th><th>Price (From)</th><th>Highlights</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>City Sightseeing: Stanley Park & Granville Island</strong></td>
+                  <td><span class="tour-platform platform-viator">Viator</span></td>
+                  <td>6–7 hrs</td>
+                  <td class="tour-price">~$89 USD</td>
+                  <td>Stanley Park, Chinatown, Gastown, Granville Island, totem poles, lookout points</td>
+                </tr>
+                <tr>
+                  <td><strong>City Tour + Capilano Bridge & Vancouver Lookout</strong></td>
+                  <td><span class="tour-platform platform-viator">Viator</span></td>
+                  <td>7–8 hrs</td>
+                  <td class="tour-price">~$150 USD</td>
+                  <td>Capilano Bridge admission included, Vancouver Lookout, Gastown, Chinatown</td>
+                </tr>
+                <tr>
+                  <td><strong>Whale Watching (West Coast Intimate)</strong></td>
+                  <td><span class="tour-platform platform-viator">Viator</span></td>
+                  <td>3–5 hrs</td>
+                  <td class="tour-price">~$177 USD</td>
+                  <td>Orcas, humpback whales, sea lions. 95% sighting guarantee. Free photos</td>
+                </tr>
+                <tr>
+                  <td><strong>Hop-On Hop-Off Bus</strong></td>
+                  <td><span class="tour-platform platform-viator">Viator</span></td>
+                  <td>Full day</td>
+                  <td class="tour-price">~$54 USD</td>
+                  <td>24 stops across the city. Audio guide in 10 languages</td>
+                </tr>
+                <tr>
+                  <td><strong>Vancouver Day Tour (Korean Guide 한국어 가이드)</strong></td>
+                  <td><span class="tour-platform platform-mrt">MyRealTrip</span></td>
+                  <td>8 hrs</td>
+                  <td class="tour-price">~$200 USD</td>
+                  <td>Private vehicle for 1–6 people. Korean-speaking guide. Customizable itinerary</td>
+                </tr>
+                <tr>
+                  <td><strong>Vancouver Island Victoria Tour (Korean Guide)</strong></td>
+                  <td><span class="tour-platform platform-mrt">MyRealTrip</span></td>
+                  <td>Full day</td>
+                  <td class="tour-price">~$250 USD</td>
+                  <td>Victoria, Butchart Gardens. Min 2 pax. Korean guide + private vehicle</td>
+                </tr>
+                <tr>
+                  <td><strong>Grand City Tour (Private)</strong></td>
+                  <td><span class="tour-platform platform-gyg">GetYourGuide</span></td>
+                  <td>5 hrs</td>
+                  <td class="tour-price">~$320 USD</td>
+                  <td>Private guide. Stanley Park, Granville, Gastown, Queen Elizabeth Park</td>
+                </tr>
+                <tr>
+                  <td><strong>4-Day Canadian Rockies & Banff Classic Summer Tour</strong></td>
+                  <td><span class="tour-platform platform-viator">Viator</span></td>
+                  <td>4 days</td>
+                  <td class="tour-price">~$908 USD</td>
+                  <td>Banff, Lake Louise, Icefields Parkway. Hotel + breakfasts included. Departs from Vancouver</td>
+                </tr>
+                <tr>
+                  <td><strong>Canadian Rockies & Banff 5-Day Premium Tour</strong></td>
+                  <td><span class="tour-platform platform-viator">Viator</span></td>
+                  <td>5 days</td>
+                  <td class="tour-price">~$2,219 USD</td>
+                  <td>Luxury coach, Athabasca Glacier, Banff Gondola, Icefields Parkway. Meals + hotels included</td>
+                </tr>
+                <tr>
+                  <td><strong>4-Day Columbia Icefield & Banff National Park</strong></td>
+                  <td><span class="tour-platform platform-gyg">GetYourGuide</span></td>
+                  <td>4 days</td>
+                  <td class="tour-price">~$1,089 USD</td>
+                  <td>Lake Louise, Banff, Columbia Icefield. Roundtrip transport + 3 nights hotel from Vancouver</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="alert-box alert-success" style="margin-top:20px;">
+          <span>💡</span>
+          <span><strong>Tip for Korean travelers:</strong> MyRealTrip (마이리얼트립) offers Korean-speaking guides in Vancouver. Bluebird Travel Agency is also a popular option among Korean expats. Book at <a href="https://www.myrealtrip.com" target="_blank">myrealtrip.com</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ITINERARY -->
+    <section id="sec-itinerary" style="padding:0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="sec-hdr">
+          <div class="sec-icon"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <div>
+            <div class="sec-num">Section 04</div>
+            <h2>Recommended Itinerary (6 Days)</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">Vancouver city + Joffre Lakes day trip + Banff Rocky Mountains extension</p>
+          </div>
+        </div>
+        <div class="card" style="padding:36px;">
+          <div class="itin-timeline">
+            <div class="itin-day">
+              <div class="day-lbl">Day 1</div>
+              <div class="day-title">Arrival + Downtown & Gastown</div>
+              <div class="day-desc">Arrive at YVR. Take the Canada Line SkyTrain to downtown (~25 min, CAD $10.50). Check in, then explore Gastown's cobblestone streets and Steam Clock. Dinner at a Gastown restaurant. Walk along the waterfront at Canada Place.</div>
+            </div>
+            <div class="itin-day">
+              <div class="day-lbl">Day 2</div>
+              <div class="day-title">Stanley Park + Granville Island</div>
+              <div class="day-desc">Morning bike ride along Stanley Park's Seawall (2–3 hrs). Visit the totem poles and Prospect Point. Afternoon at Granville Island Public Market — lunch at the market, browse artisan shops. Take the Aquabus back to downtown. Visit Vancouver Lookout at sunset.</div>
+            </div>
+            <div class="itin-day">
+              <div class="day-lbl">Day 3</div>
+              <div class="day-title">North Shore: Capilano + Grouse Mountain</div>
+              <div class="day-desc">Morning at Capilano Suspension Bridge Park (free shuttle from Canada Place). Afternoon SkyTram up Grouse Mountain for the panoramic view. Optional: hike the Grouse Grind. Evening: whale watching sunset tour from Granville Island (~3 hrs).</div>
+            </div>
+            <div class="itin-day">
+              <div class="day-lbl">Day 4</div>
+              <div class="day-title">Joffre Lakes Day Trip</div>
+              <div class="day-desc">Early morning drive (or guided tour) along the Sea-to-Sky Highway to Joffre Lakes Provincial Park (~2.5 hrs). Hike all three turquoise glacial lakes (9.5km round trip, 3–4 hrs). Pack lunch and plenty of water. Return to Vancouver via Whistler Village for dinner. Remember to reserve your free day-use pass at bcparks.ca!</div>
+            </div>
+            <div class="itin-day">
+              <div class="day-lbl">Days 5–6</div>
+              <div class="day-title">Banff & Canadian Rockies Extension</div>
+              <div class="day-desc">Option A: Join a 4-day Banff tour from Vancouver (Viator/GetYourGuide, from ~$908 USD) covering Lake Louise, Moraine Lake, Icefields Parkway, and Banff town. Option B: Fly YVR → Calgary (1.5 hrs), rent a car, and self-drive to Banff (1.5 hrs). Visit Lake Louise, ride the Banff Gondola, hike Johnston Canyon, and explore Banff Avenue shops and restaurants. Depart from Calgary or return to Vancouver.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENTRY REQUIREMENTS / VISA -->
+    <section id="sec-visa" style="padding:0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="sec-hdr">
+          <div class="sec-icon" style="background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.15);"><svg viewBox="0 0 24 24" style="stroke:var(--warning);"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg></div>
+          <div>
+            <div class="sec-num" style="color:var(--warning);">Section 05</div>
+            <h2>Entry Requirements & Visa Info</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">For Korean (ROK) passport holders working in the US on J-1 visa</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h4>🇨🇦 Entering Canada (Korean Passport)</h4>
+          <ul>
+            <li>South Korean citizens need an <strong>eTA (Electronic Travel Authorization)</strong> for air travel to Canada</li>
+            <li>Apply online at <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html" target="_blank">canada.ca</a> — costs <strong>CAD $7</strong>, approved within minutes to hours</li>
+            <li>Valid for up to <strong>5 years</strong> or until your passport expires (whichever is first)</li>
+            <li>Maximum stay: <strong>6 months</strong> per visit (tourism/business)</li>
+            <li>If entering by <strong>land or sea</strong> (e.g., driving from Seattle), no eTA is needed — just your valid passport</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4>🇺🇸 Returning to the US (J-1 Visa Holder)</h4>
+          <ul>
+            <li>Ensure your <strong>DS-2019</strong> is valid beyond your return date and has a <strong>travel validation signature</strong> from your program's Responsible Officer (signed within the past 12 months)</li>
+            <li>Carry a printed copy of your <strong>I-94 record</strong> (download from <a href="https://i94.cbp.dhs.gov/I94/" target="_blank">i94.cbp.dhs.gov</a>)</li>
+            <li><strong>Automatic Revalidation</strong> applies: if your trip to Canada is 30 days or less, you can re-enter the US even if your visa stamp has expired (as long as you haven't applied for a new US visa while in Canada)</li>
+            <li>Carry your <strong>valid Korean passport</strong>, <strong>DS-2019</strong>, and <strong>I-94</strong> at all times</li>
+          </ul>
+          <div class="alert-box alert-warn">
+            <span>⚠️</span>
+            <span><strong>Important:</strong> Get the travel endorsement signature on your DS-2019 BEFORE leaving the US. Without it, you may face issues re-entering. Contact your J-1 program sponsor's Responsible Officer.</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h4>📱 Mint Mobile in Canada</h4>
+          <ul>
+            <li>Mint Mobile now includes <strong>free roaming in Canada</strong> on all plans</li>
+            <li>You get: <strong>Unlimited talk & text + 3GB high-speed data</strong> per month in Canada</li>
+            <li>Activates <strong>automatically</strong> when you cross the border — just make sure "Data Roaming" is enabled in your phone settings</li>
+            <li>You'll receive an SMS confirmation upon arrival in Canada</li>
+            <li>If you exceed 3GB, you can purchase additional data via the Mint Mobile app</li>
+            <li>This is a standard travel benefit via T-Mobile's network — no extra cost or setup needed</li>
+          </ul>
+          <div class="alert-box alert-success">
+            <span>✅</span>
+            <span><strong>Good news:</strong> Your Mint Mobile plan works in Canada! No need to buy a local SIM or eSIM. Just enable data roaming and you're covered.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section id="sec-checklist" style="padding:0 24px 72px;" data-reveal>
+      <div class="container">
+        <div class="sec-hdr">
+          <div class="sec-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div>
+            <div class="sec-num">Section 06</div>
+            <h2>Packing Checklist</h2>
+            <p class="text-secondary" style="font-size:0.9rem;">Summer in Vancouver & the Rockies — pack for warm days and mountain adventures</p>
+          </div>
+        </div>
+        <div class="check-grid">
+          <div class="card check-cat">
+            <div class="check-cat-title">📄 Documents</div>
+            <ul class="check-items">
+              <li><span class="chk">✓</span>Korean passport (6+ months validity)</li>
+              <li><span class="chk">✓</span>Canada eTA (apply online, CAD $7)</li>
+              <li><span class="chk">✓</span>DS-2019 with travel validation signature</li>
+              <li><span class="chk">✓</span>Printed I-94 record</li>
+              <li><span class="chk">✓</span>Travel insurance</li>
+            </ul>
+          </div>
+          <div class="card check-cat">
+            <div class="check-cat-title">👕 Clothing</div>
+            <ul class="check-items">
+              <li><span class="chk">✓</span>Light rain jacket (occasional showers)</li>
+              <li><span class="chk">✓</span>T-shirts, shorts + light layers for evening</li>
+              <li><span class="chk">✓</span>Hiking shoes (Joffre Lakes / Banff trails)</li>
+              <li><span class="chk">✓</span>Swimsuit (beaches & hotel pools)</li>
+              <li><span class="chk">✓</span>Sunglasses, hat & SPF 50 sunscreen</li>
+            </ul>
+          </div>
+          <div class="card check-cat">
+            <div class="check-cat-title">💰 Money & Tech</div>
+            <ul class="check-items">
+              <li><span class="chk">✓</span>Credit card (Visa/Mastercard widely accepted)</li>
+              <li><span class="chk">✓</span>Some CAD cash for small vendors</li>
+              <li><span class="chk">✓</span>Mint Mobile — works in Canada (free roaming)</li>
+              <li><span class="chk">✓</span>Portable charger</li>
+              <li><span class="chk">✓</span>Camera / GoPro for nature shots</li>
+            </ul>
+          </div>
+          <div class="card check-cat">
+            <div class="check-cat-title">🎒 Essentials</div>
+            <ul class="check-items">
+              <li><span class="chk">✓</span>Compact umbrella</li>
+              <li><span class="chk">✓</span>Day backpack for hiking</li>
+              <li><span class="chk">✓</span>Reusable water bottle</li>
+              <li><span class="chk">✓</span>Snacks / energy bars for trails</li>
+              <li><span class="chk">✓</span>Google Maps offline (download BC region)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Vancouver Travel Guide · July 2026</p>
+      <p style="margin-top:4px;opacity:0.6;">Sources: Tourism Vancouver, canada.ca, Viator, MyRealTrip, Mint Mobile, T-Mobile</p>
+    </footer>
+  </main>
+
+  <!-- NAV DOTS -->
+  <nav class="sec-nav" aria-label="Section navigation">
+    <a href="#sec-weather" class="nav-dot" data-section="sec-weather"></a>
+    <a href="#sec-spots" class="nav-dot" data-section="sec-spots"></a>
+    <a href="#sec-tours" class="nav-dot" data-section="sec-tours"></a>
+    <a href="#sec-itinerary" class="nav-dot" data-section="sec-itinerary"></a>
+    <a href="#sec-visa" class="nav-dot" data-section="sec-visa"></a>
+    <a href="#sec-checklist" class="nav-dot" data-section="sec-checklist"></a>
+    <span class="nav-lbl" id="navLabel">Weather</span>
+  </nav>
+
+  <script>
+    // Menu
+    function toggleMenu() { document.getElementById('vizMenuDropdown').classList.toggle('open'); }
+    document.addEventListener('click', function(e) { if (!e.target.closest('.viz-menu')) document.getElementById('vizMenuDropdown').classList.remove('open'); });
+
+    // Theme
+    var currentTheme = localStorage.getItem('vcr-theme') || (matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
+    function applyTheme(t) {
+      document.documentElement.className = 'theme-' + t;
+      document.getElementById('themeIcon').textContent = t === 'dark' ? '🌙' : '☀️';
+      document.getElementById('themeLabel').textContent = t === 'dark' ? 'Dark' : 'Light';
+      localStorage.setItem('vcr-theme', t); currentTheme = t;
+    }
+    function cycleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+    applyTheme(currentTheme);
+
+    // Scroll Reveal
+    document.querySelectorAll('[data-reveal]').forEach(function(el) { el.classList.add('reveal'); });
+    var rObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); rObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el) { rObs.observe(el); });
+
+    // Nav dots
+    var navLabels = { 'sec-weather':'Weather', 'sec-spots':'Attractions', 'sec-tours':'Tours', 'sec-itinerary':'Itinerary', 'sec-visa':'Visa & Info', 'sec-checklist':'Checklist' };
+    var nObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          document.querySelectorAll('.nav-dot').forEach(function(d) { d.classList.toggle('active', d.dataset.section === id); });
+          var lbl = document.getElementById('navLabel');
+          if (lbl && navLabels[id]) lbl.textContent = navLabels[id];
+        }
+      });
+    }, { threshold: 0.25 });
+    document.querySelectorAll('[id^="sec-"]').forEach(function(s) { nObs.observe(s); });
+  </script>
+</body>
+</html>
