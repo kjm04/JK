@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Dynamic Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     // Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
@@ -20,12 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Close mobile sidebar when a link is clicked
-    const links = document.querySelectorAll('.sidebar a'); // If we move nav to sidebar on mobile
-    
-    // Smooth scrolling for anchor links is handled by CSS, but we can add active state
+    // Smooth scrolling active state
     const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.top-nav a');
+    const navLinks = document.querySelectorAll('.top-nav a:not(.nav-pub-link)');
 
     window.addEventListener('scroll', () => {
         let current = '';
@@ -39,9 +37,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
+            if (link.getAttribute('href') && link.getAttribute('href').includes(current)) {
                 link.classList.add('active');
             }
         });
     });
+
+    // ============================
+    // Dark / Light Mode Toggle
+    // ============================
+    const savedTheme = localStorage.getItem('jk-theme') || 'light';
+    applyTheme(savedTheme);
+
+    // Sidebar toggle button
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            localStorage.setItem('jk-theme', next);
+        });
+    }
+
+    // Mobile toggle button
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    if (themeToggleMobile) {
+        themeToggleMobile.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            localStorage.setItem('jk-theme', next);
+        });
+    }
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Update sidebar icon & label
+        const icon = document.getElementById('theme-icon');
+        const label = document.getElementById('theme-label');
+        if (icon) {
+            icon.classList.remove('fa-moon', 'fa-sun');
+            icon.classList.add(theme === 'dark' ? 'fa-sun' : 'fa-moon');
+        }
+        if (label) {
+            label.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        }
+
+        // Update mobile icon
+        const iconMobile = document.getElementById('theme-icon-mobile');
+        if (iconMobile) {
+            iconMobile.classList.remove('fa-moon', 'fa-sun');
+            iconMobile.classList.add(theme === 'dark' ? 'fa-sun' : 'fa-moon');
+        }
+    }
 });

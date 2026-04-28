@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Interests | Dr. Jinmu Kim</title>
+    <meta name="description" content="Research interests and projects of Dr. Jinmu Kim.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-photo-container">
+                    <img src="assets/profile.png" alt="Profile Photo" class="profile-photo" id="profile-photo">
+                </div>
+                <h1 class="name">Dr. Jinmu Kim</h1>
+                <p class="title">Postdoctoral Researcher</p>
+                <p class="university">Univ. of Illinois Urbana-Champaign</p>
+            </div>
+            <div class="contact-section">
+                <ul class="contact-list">
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:kjm04@illinois.edu">kjm04@illinois.edu</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://scholar.google.com/citations?user=EKrur-wAAAAJ&hl=en" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i> Scholar</a>
+                    <a href="https://orcid.org/0000-0003-4045-7227" aria-label="ORCID"><i class="fab fa-orcid"></i> ORCID</a>
+                    <a href="https://www.linkedin.com/in/jinmu-kim-b20b4b314" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://www.researchgate.net/profile/Jinmu-Kim" aria-label="ResearchGate"><i class="fab fa-researchgate"></i> Research Gate</a>
+                </div>
+            </div>
+            <div class="theme-toggle-wrapper">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                    <span id="theme-label">Dark Mode</span>
+                </button>
+            </div>
+            <div class="sidebar-footer">
+                <p>&copy; <span id="current-year"></span> J.K.</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="mobile-header">
+                <span class="mobile-title">Dr. Jinmu Kim</span>
+                <div class="mobile-controls">
+                    <button class="theme-toggle-mobile" id="theme-toggle-mobile" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon" id="theme-icon-mobile"></i>
+                    </button>
+                    <button class="menu-toggle" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="pub-page-header">
+                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+            </div>
+
+            <section class="content-section">
+                <h2>Research Details & Figures</h2>
+                <p class="ai-img-note"><i class="fas fa-info-circle"></i> The images below were created using generative AI based on the author's publications and research data.</p>
+            </section>
+
+            <!-- eDNA -->
+            <section class="content-section research-detail-section">
+                <h2><i class="fas fa-water" style="color: var(--accent-color); margin-right: 0.5rem;"></i> Environmental DNA (eDNA)</h2>
+                <div class="research-detail-img">
+                    <img src="assets/4_eDNA_pipeline.png" alt="Environmental DNA metabarcoding pipeline">
+                </div>
+                <div class="research-detail-text">
+                    <p>Environmental DNA (eDNA) metabarcoding is a powerful, non-invasive tool for surveying biodiversity in marine ecosystems. My research involves developing and optimizing eDNA sampling protocols for seawater, followed by DNA extraction and multi-marker PCR amplification (MiFish for fish, 18S for eukaryotes, COI for invertebrates, 16S and 23S for prokaryotes).</p>
+                    <p>Using next-generation sequencing (NGS) and bioinformatics analysis through QIIME 2 pipelines, I assess species composition, community structure, and ecological patterns in marine environments — from coastal waters to polar regions.</p>
+                </div>
+            </section>
+
+            <!-- Polar Genomics -->
+            <section class="content-section research-detail-section">
+                <h2><i class="fas fa-dna" style="color: var(--accent-color); margin-right: 0.5rem;"></i> Polar Genomics & Evolution</h2>
+                <div class="research-detail-img">
+                    <img src="assets/3_S4_genome.png" alt="Chromosome-level genome assembly of Antarctic fish">
+                </div>
+                <div class="research-detail-text">
+                    <p>My work in polar genomics focuses on constructing high-quality, chromosome-level genome assemblies of Antarctic marine organisms using long-read sequencing technologies (PacBio HiFi, Oxford Nanopore) combined with Hi-C chromatin conformation capture for scaffolding.</p>
+                    <p>Through comparative genomics, I investigate the evolutionary adaptations that allow Antarctic fish to thrive in extreme cold environments, including the deficiency of MHC class II genes in the adaptive immune system and the expansion of Toll-like receptors (TLRs) in innate immunity, as well as antifreeze protein gene family evolution.</p>
+                </div>
+            </section>
+
+            <!-- Stress Response -->
+            <section class="content-section research-detail-section">
+                <h2><i class="fas fa-flask" style="color: var(--accent-color); margin-right: 0.5rem;"></i> Stress-Response & Toxicogenomics</h2>
+                <div class="research-detail-img">
+                    <img src="assets/1_Teg_Zn.png" alt="HSP70 gene expansion and zinc toxicity in Tegillarca granosa">
+                </div>
+                <div class="research-detail-img">
+                    <img src="assets/2_Teg_As.png" alt="ABC transporter family and arsenic detoxification in Tegillarca granosa">
+                </div>
+                <div class="research-detail-text">
+                    <p>This research line investigates heavy metal stress responses in the blood clam <em>Tegillarca granosa</em>, a commercially important marine bivalve. Through genome-wide analysis, I identified a significant expansion of the HSP70 gene family and characterized their expression profiles under zinc (Zn) toxicity stress.</p>
+                    <p>I also performed genome-wide identification of ABC (ATP-binding cassette) transporter families and elucidated their roles in arsenic (As) detoxification, integrating whole-genome sequencing data with RNA-seq transcriptomics to understand the molecular mechanisms of heavy metal tolerance in marine invertebrates.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
